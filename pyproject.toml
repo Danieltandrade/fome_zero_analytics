@@ -5,8 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "folium>=0.20.0",
     "inflection>=0.5.1",
     "nbformat>=5.10.4",
+    "numpy>=2.4.0",
     "pandas>=2.3.3",
     "plotly>=6.5.2",
+    "streamlit>=1.53.1",
+    "streamlit-folium>=0.26.1",
 ]
