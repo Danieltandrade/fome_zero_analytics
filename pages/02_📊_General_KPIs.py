@@ -68,12 +68,12 @@ def create_map(df):
 def main():
 
     st.set_page_config(
-        page_title="Indicadores Gerais", 
+        page_title="General KPIs", 
         page_icon="📊", 
         layout='wide'
     )
 
-    st.title("Fome Zero - Indicadores Gerais")
+    st.title("📊 Fome Zero - KPIs Gerais")
 
     df = df_cleaning(DATA_PATH, df_clean=True)
 
