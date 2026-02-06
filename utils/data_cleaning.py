@@ -201,7 +201,6 @@ def clean_rating_text(text: str) -> str | None:
     # se não achar, mantém o texto original (segurança).
     return mapping.get(text, text)
 
-
 def df_cleaning(path: Path, df_clean: bool = True) -> pd.DataFrame:
 
     # 1. Verificação de segurança
@@ -240,4 +239,3 @@ def df_cleaning(path: Path, df_clean: bool = True) -> pd.DataFrame:
     df.reset_index(drop=True)
 
     return df
-
