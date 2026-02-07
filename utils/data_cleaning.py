@@ -1,10 +1,24 @@
 """
+Módulo para limpeza e tratamento de dados
 
+Este módulo contém funções para limpar e transformar dados, como renomear colunas e 
+converter códigos para nomes de países e culinaria. Ele também oferece funções para carregar
+e limpar dados de um arquivo CSV.
+
+Functions:
+    country_name(country_id): Função para converter o código do país no nome do país.
+    create_price_tye(price_range): Função para converter um código no tipo de preço da comida.
+    color_name(color_id): Função para converter o código da cor no nome da cor.
+    rename_columns(df): Função para renomear as colunas do dataframe.
+    clean_cuisines_column(df): Função para limpar e remover linhas vazias da coluna 'cuisines'.
+    clean_rating_text(rating_text): Função para limpar e padronizar a coluna 'rating_text'.
+    df_cleaning(path, df_clean): Função para carregar e limpar os dados de um arquivo CSV.
 """
 
 import os
 import inflection
 import pandas as pd
+import streamlit as st
 from pathlib import Path
 
 
@@ -201,6 +215,7 @@ def clean_rating_text(text: str) -> str | None:
     # se não achar, mantém o texto original (segurança).
     return mapping.get(text, text)
 
+@st.cache_data
 def df_cleaning(path: Path, df_clean: bool = True) -> pd.DataFrame:
 
     # 1. Verificação de segurança

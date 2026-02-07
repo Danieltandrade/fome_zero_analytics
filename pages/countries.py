@@ -1,15 +1,17 @@
 """
+Análise por Países (Country Analytics)
 
+Este módulo foca na comparação de métricas entre os diferentes países cadastrados
+na base de dados.
+
+Objetivos da Análise:
+    - Identificar a distribuição de restaurantes e cidades por país.
+    - Comparar a média de avaliações (ratings) entre nações.
+    - Analisar o custo médio de um prato para duas pessoas em diferentes moedas/países.
 """
 
-import os
-import sys
 import streamlit as st
 import plotly.express as px
-
-# Adiciona a raiz do projeto ao sys.path
-project_root = os.path.join(os.path.dirname(__file__), '..')
-sys.path.append(project_root)
 
 from utils.sidebar import create_sidebar
 from utils.data_cleaning import df_cleaning
@@ -24,12 +26,6 @@ IMAGE_PATH = root_dir / 'images' / 'image1.png'
 DATA_PATH = root_dir / 'data' / 'raw' / 'dataset.csv'
 
 def main():
-
-    st.set_page_config(
-        page_title="Countries", 
-        page_icon="🌎", 
-        layout='wide'
-    )
 
     st.title("🌎 Fome Zero - Countries")
 

@@ -1,15 +1,17 @@
 """
+Análise por Culinária (Cuisines Analytics)
 
+Este módulo oferece uma visão aprofundada sobre os tipos de culinária oferecidos
+e a performance dos restaurantes específicos.
+
+Funcionalidades:
+    - Tabela interativa dos Top N restaurantes.
+    - Métricas de melhores e piores tipos de culinária baseadas em avaliações.
+    - Filtros específicos de quantidade de restaurantes e tipos de culinária.
 """
 
-import os
-import sys
 import streamlit as st
 import plotly.express as px
-
-# Adiciona a raiz do projeto ao sys.path
-project_root = os.path.join(os.path.dirname(__file__), '..')
-sys.path.append(project_root)
 
 from utils.cuisines_data import write_metrics
 from utils.cuisines_data import top_restaurants
@@ -25,12 +27,6 @@ IMAGE_PATH = root_dir / 'images' / 'image1.png'
 DATA_PATH = root_dir / 'data' / 'raw' / 'dataset.csv'
 
 def main():
-
-    st.set_page_config(
-        page_title="Cuisines", 
-        page_icon="🥘", 
-        layout='wide'
-    )
 
     st.title("🥘 Fome Zero - Cuisines")
 
@@ -49,6 +45,8 @@ def main():
     st.markdown(f"## Top {top_n} Restaurantes")
 
     st.dataframe(df_restaurants)
+
+    st.markdown("""---""")
 
     st.markdown('## Melhores e Piores Culinárias!', text_alignment='center')
 
@@ -109,8 +107,6 @@ def main():
         )
         fig.update_traces(texttemplate='%{y:.2f}')
         st.plotly_chart(fig, width='stretch')
-    
-    st.markdown("""---""")
 
 
 if __name__ == "__main__":

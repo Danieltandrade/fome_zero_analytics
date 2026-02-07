@@ -1,103 +1,108 @@
+"""
+Módulo para selecionar os melhores restaurantes por culinaria
+
+Este módulo oferece uma função para selecionar os melhores restaurantes por culinaria
+e uma função para exibir os melhores restaurantes por culinaria.
+
+Functions:
+    top_cuisines(df): Seleciona os melhores restaurantes por culinaria
+    write_metrics(df): Exibe os melhores restaurantes por culinaria
+    top_restaurants(df, countries, cuisines, top_n): Seleciona os melhores restaurantes por pais e culinaria
+"""
 
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 
-def top_cuisines(df: pd.DataFrame):
+def top_cuisines(df: pd.DataFrame) -> dict:
+    """
+    Função para selecionar os melhores restaurantes por culinaria
+
+    Args:
+        df (pd.DataFrame): Dataframe com os dados dos restaurantes
+
+    Returns:
+        dict: Dicionário com os melhores restaurantes por culinaria
+
+    Example:
+        top_cuisines(df)
+    """
 
     target_cuisines = ["Italian", "American", "Arabian", "Japanese", "Brazilian"]
-
     results = {}
-
+    
+    # Seleção de colunas otimizada
     cols = [
         "restaurant_id", "restaurant_name", "country_name", "city",
         "cuisines", "average_cost_for_two", "currency",
-        "aggregate_rating", "votes"
+        "aggregate_rating"
     ]
 
     for cuisine in target_cuisines:
-        # Nota: Cuidado aqui. df["cuisines"] == key busca correspondência EXATA.
-        # Se o restaurante tiver "Italian, Pizza", essa lógica vai ignorá-lo.
-        lines = df["cuisines"] == cuisine
+        # CORREÇÃO: regex=False para ser mais rápido, case=False para ignorar maiúsculas/minúsculas
+        # na=False ignora valores nulos sem dar erro
+        lines = df["cuisines"].str.contains(cuisine, case=False, na=False, regex=False)
 
-        # Verifica se encontrou algo para evitar erro no iloc[0]
         if not lines.any():
             continue
 
-        results[cuisine] = (
+        top_rest = (
             df.loc[lines, cols]
             .sort_values(["aggregate_rating", "restaurant_id"], ascending=[False, True])
-            .iloc[0] # iloc[0] já retorna uma Series, não precisa de [:, :]
-            .to_dict()
+            .iloc[0]
         )
+        
+        results[cuisine] = top_rest.to_dict()
 
     return results
 
-def write_metrics(df: pd.DataFrame):
+def write_metrics(df: pd.DataFrame) -> None:
+    """
+    Função para exibir os melhores restaurantes por culinaria
 
-    cuisines = top_cuisines(df)
+    Args:
+        df (pd.DataFrame): Dataframe com os dados dos restaurantes
 
-    italian, american, arabian, japonese, brazilian = st.columns(len(cuisines))
+    Returns:
+        None
 
-    with italian:
-        st.metric(
-            label=f'Italiana: {cuisines["Italian"]["restaurant_name"]}',
-            value=f'{cuisines["Italian"]["aggregate_rating"]}/5.0',
-            help=f"""
-            País: {cuisines["Italian"]['country_name']}\n
-            Cidade: {cuisines["Italian"]['city']}\n
-            Média Prato para dois: {cuisines["Italian"]['average_cost_for_two']} ({cuisines["Italian"]['currency']})
-            """,
-        )
+    Example:
+        write_metrics(df)
+    """
 
-    with american:
-        st.metric(
-            label=f'Italiana: {cuisines["American"]["restaurant_name"]}',
-            value=f'{cuisines["American"]["aggregate_rating"]}/5.0',
-            help=f"""
-            País: {cuisines["American"]['country_name']}\n
-            Cidade: {cuisines["American"]['city']}\n
-            Média Prato para dois: {cuisines["American"]['average_cost_for_two']} ({cuisines["American"]['currency']})
-            """,
-        )
+    data = top_cuisines(df)
+    
+    # Layout dinâmico: cria colunas baseado em quantas culinárias foram encontradas
+    cols = st.columns(len(data))
+    
+    for col, (cuisine, info) in zip(cols, data.items()):
+        with col:
+            st.metric(
+                label=f'{cuisine}: {info["restaurant_name"]}',
+                value=f'{info["aggregate_rating"]}/5.0',
+                help=f"""
+                País: {info['country_name']}
+                Cidade: {info['city']}
+                Preço: {info['average_cost_for_two']} ({info['currency']})
+                """
+            )
 
-    with arabian:
-        st.metric(
-            label=f'Italiana: {cuisines["Arabian"]["restaurant_name"]}',
-            value=f'{cuisines["Arabian"]["aggregate_rating"]}/5.0',
-            help=f"""
-            País: {cuisines["Arabian"]['country_name']}\n
-            Cidade: {cuisines["Arabian"]['city']}\n
-            Média Prato para dois: {cuisines["Arabian"]['average_cost_for_two']} ({cuisines["Arabian"]['currency']})
-            """,
-        )
+def top_restaurants(df, countries, cuisines, top_n) -> pd.DataFrame:
+    """
+    Função para selecionar os melhores restaurantes por país e culinaria
 
-    with japonese:
-        st.metric(
-            label=f'Italiana: {cuisines["Japanese"]["restaurant_name"]}',
-            value=f'{cuisines["Japanese"]["aggregate_rating"]}/5.0',
-            help=f"""
-            País: {cuisines["Japanese"]['country_name']}\n
-            Cidade: {cuisines["Japanese"]['city']}\n
-            Média Prato para dois: {cuisines["Japanese"]['average_cost_for_two']} ({cuisines["Japanese"]['currency']})
-            """,
-        )
+    Args:
+        df (pd.DataFrame): Dataframe com os dados dos restaurantes
+        countries (list): Lista de paíseses selecionados na sidebar
+        cuisines (list): Lista de culinarias selecionadas na sidebar
+        top_n (int): Quantidade de restaurantes a serem selecionados
 
-    with brazilian:
-        st.metric(
-            label=f'Italiana: {cuisines["Brazilian"]["restaurant_name"]}',
-            value=f'{cuisines["Brazilian"]["aggregate_rating"]}/5.0',
-            help=f"""
-            País: {cuisines["Brazilian"]['country_name']}\n
-            Cidade: {cuisines["Brazilian"]['city']}\n
-            Média Prato para dois: {cuisines["Brazilian"]['average_cost_for_two']} ({cuisines["Brazilian"]['currency']})
-            """,
-        )
+    Returns:
+        pd.DataFrame: Dataframe com os melhores restaurantes
+    
+    Example:
+        top_restaurants(df, countries, cuisines, top_n)
+    """
 
-    return None
-
-def top_restaurants(df, countries, cuisines, top_n):
     cols = [
         "restaurant_id",
         "restaurant_name",

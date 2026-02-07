@@ -1,15 +1,16 @@
 """
+Análise por Cidades (City Analytics)
 
+Este módulo detalha o comportamento dos restaurantes agrupados por cidade.
+
+Visualizações Principais:
+    - Top Cidades com maior volume de restaurantes.
+    - Cidades com melhores e piores médias de avaliação.
+    - Diversidade culinária por cidade (quantidade de tipos de culinária únicos).
 """
 
-import os
-import sys
 import streamlit as st
 import plotly.express as px
-
-# Adiciona a raiz do projeto ao sys.path
-project_root = os.path.join(os.path.dirname(__file__), '..')
-sys.path.append(project_root)
 
 from utils.sidebar import create_sidebar
 from utils.data_cleaning import df_cleaning
@@ -24,12 +25,6 @@ IMAGE_PATH = root_dir / 'images' / 'image1.png'
 DATA_PATH = root_dir / 'data' / 'raw' / 'dataset.csv'
 
 def main():
-
-    st.set_page_config(
-        page_title="Cities", 
-        page_icon="🏙️", 
-        layout='wide'
-    )
 
     st.title("🏙️ Fome Zero - Cities")
 
