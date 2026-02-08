@@ -14,20 +14,35 @@ from pathlib import Path
 
 from utils.data_cleaning import df_cleaning 
 
-
+# caminhos
 current_dir = Path(__file__).parent
 
 IMAGE_PATH = current_dir / 'images' / 'image1.png'
 DATA_PATH = current_dir / 'data' / 'raw' / 'dataset.csv'
+PROCESSED_DATA_PATH = current_dir / 'data' / 'processed' / 'dataset_processed.csv'
 
 def main():
     df = df_cleaning(DATA_PATH, df_clean=True)
-    
-    # Sidebar apenas com imagem, sem filtros na Home (Filtros globais confundem na Home)
+
+    # --- SIDEBAR ---
     st.sidebar.image(str(IMAGE_PATH), width=270)
     st.sidebar.markdown("# Fome Zero")
     st.sidebar.markdown("---")
     st.sidebar.write("Powered by Streamlit")
+
+    # Verifica se o arquivo existe para evitar erros
+    if PROCESSED_DATA_PATH.exists():
+        with open(PROCESSED_DATA_PATH, "rb") as file:
+            st.sidebar.markdown("---")
+            st.sidebar.download_button(
+                label="📥 Download Dataset Tratado",
+                data=file,
+                file_name="dataset_processed.csv",
+                mime="text/csv"
+            )
+    else:
+        # Avisa se o arquivo não for encontrado!
+        st.sidebar.warning("Arquivo processado não encontrado.")
 
     # --- CORPO DA PÁGINA ---
     st.write("# 🍽️ Fome Zero Dashboard")

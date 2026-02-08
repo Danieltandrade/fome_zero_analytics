@@ -1,148 +1,128 @@
 # 🍽️ Fome Zero Analytics
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DanielTorresAndrade)
-[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Python Version](https://img.shields.io/badge/Python-3.13-blue?style=for-the-badge&logo=python)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/)
-[![Versão do Projeto](https://img.shields.io/badge/Vers%C3%A3o-1.0-blue?style=for-the-badge)](https://github.com/DanielTorresAndrade)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://daniel-fome-zero-analytics.streamlit.app/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Data_Science-blue)](https://github.com/DanielTorresAndrade)
 
-## 📄 Sobre o Projeto
-
-O **Fome Zero Analytics** é um painel de inteligência de dados desenvolvido para analisar o mercado de restaurantes global. O objetivo principal é simular um cenário corporativo onde um CEO precisa de visibilidade sobre os dados da plataforma para tomar decisões estratégicas.
-
-O projeto processa um conjunto de dados global, realiza a limpeza e tratamento das informações e as apresenta através de um dashboard interativo web, permitindo a exploração de métricas por diferentes perspectivas de negócio: Visão Geral, Países, Cidades e Culinárias.
-
-O dataset original foi obtido no Kaggle e contém informações sobre milhares de restaurantes, incluindo localização, tipos de culinária, custos e avaliações de clientes.
-
-## 🎯 Objetivos
-
-- **Consolidar Métricas:** Fornecer uma visão macro do negócio (KPIs globais).
-- **Análise Geográfica:** Identificar oportunidades e comportamentos em diferentes países e cidades.
-- **Segmentação Culinária:** Avaliar o desempenho de diferentes tipos de cozinha e identificar nichos de alta performance.
-- **Democratização de Dados:** Disponibilizar os dados de forma visual e acessível para times de negócio através de uma aplicação Web.
-
-## 🛠️ Tecnologias e Bibliotecas
-
-- **Python 3.13:** Linguagem base do projeto.
-- **Streamlit:** Framework para construção do dashboard interativo e estrutura de navegação (`st.navigation`).
-- **Pandas:** Manipulação, limpeza e agregação de dados.
-- **Plotly Express:** Criação de gráficos interativos (barras, dispersão, etc).
-- **Folium:** Visualização de mapas geoespaciais e clusters de restaurantes.
-- **UV:** Gerenciamento moderno e ultrarrápido de dependências e ambientes virtuais.
-
-## 📂 Estrutura do Projeto
-
-A arquitetura do projeto foi organizada para garantir escalabilidade e manutenção, separando a lógica de processamento (`utils`), as interfaces de visualização (`pages`) e os notebooks de exploração.
-
-```bash
-project_root
-├── app.py                   # Arquivo principal (Entry Point) da aplicação
-├── home.py                  # Conteúdo da página inicial (Landing Page)
-├── pyproject.toml           # Configuração de dependências (UV)
-├── requirements.txt         # Lista de dependências para deploy (PIP)
-├── README.md                # Documentação do projeto
-├── uv.lock                  # Lockfile para garantir reprodutibilidade
-├── data
-│   ├── processed            # Dados tratados (opcional)
-│   └── raw                  # Dados brutos
-├── images
-│   └── image1.png           # Assets visuais
-├── notebooks                # Análises exploratórias e rascunhos
-│   ├── limpeza_dados.ipynb
-│   ├── visao_cidade.ipynb
-│   ├── visao_culinaria.ipynb
-│   ├── visao_geral.ipynb
-│   ├── visao_pais.ipynb
-│   └── visao_restaurantes.ipynb
-├── pages                    # Módulos das páginas do Dashboard
-│   ├── cities.py
-│   ├── countries.py
-│   ├── cuisines.py
-│   └── general_kpis.py
-└── utils                    # Funções auxiliares e compartilhadas
-    ├── __init__.py
-    ├── cuisines_data.py     # Lógica específica de culinárias
-    ├── data_cleaning.py     # Pipeline de limpeza de dados (ETL)
-    └── sidebar.py           # Componentes de UI reutilizáveis
-```
-
-## 🚀 Funcionalidades do Dashboard
-
-O painel é dividido em 4 visões principais:
-
-1. **General KPIs:** Visão executiva com totais de restaurantes, países, cidades e um mapa interativo global.
-2. **Countries:** Comparativo entre países (quantidade de restaurantes, média de avaliações e custo médio).
-3. **Cities:** Ranking das cidades com mais restaurantes, melhores avaliações e diversidade culinária.
-4. **Cuisines:** Análise profunda dos tipos de culinária, destacando os melhores restaurantes e categorias.
-
-## ⚙️ Como Executar o Projeto
-
-### Pré-requisitos
-
-- Git
-- Python 3.10 ou superior
-- Recomendado: [uv](https://github.com/astral-sh/uv) instalado.
-
-### Passo 1: Clone o Repositório
-
-```bash
-git clone [https://github.com/Danieltandrade/fome_zero_analytics.git](https://github.com/Danieltandrade/fome_zero_analytics.git)
-cd fome_zero_analytics
-```
-
-### Passo 2: Instalação e Execução
-
-#### Opção A: Usando UV (Recomendado)
-
-O `uv` gerencia o ambiente virtual e as dependências automaticamente de forma muito mais rápida.
-
-```bash
-# Sincroniza as dependências e cria o ambiente virtual
-uv sync
-
-# Ativa o ambiente virtual
-source .venv/bin/activate  # Linux/Mac
-# ou
-.venv\Scripts\activate     # Windows
-
-# Executa o dashboard
-streamlit run app.py
-```
-
-#### Opção B: Usando PIP (Padrão)
-
-```bash
-# Crie e ative um ambiente virtual
-python -m venv .venv
-source .venv/bin/activate  # Linux/Mac
-# ou
-.venv\Scripts\activate     # Windows
-
-# Instale as dependências
-pip install -r requirements.txt
-
-# Executa o dashboard
-streamlit run app.py
-```
-
-## 🧠 Habilidades Demonstradas
-
-- **Engenharia de Dados:** Criação de scripts modularizados em Python e pipelines de limpeza de dados (`utils/data_cleaning.py`).
-- **Visualização de Dados:** Uso avançado de Plotly e Folium para transformar dados brutos em insights visuais.
-- **Desenvolvimento Web (Low-code):** Domínio do framework Streamlit, incluindo recursos novos como `st.navigation`.
-- **Boas Práticas:** Uso de Type Hints, Docstrings, estrutura modular e gerenciamento profissional de dependências.
-
-## 📝 Licença
-
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
-
-## 📧 Contato
-
-**Daniel Torres Andrade**
-- ✉️ Email: danieltorresandrade@gmail.com
-- 💼 LinkedIn: [Seu LinkedIn](https://www.linkedin.com/in/daniel-torres-de-andrade-19a4742b4)
-- 🐙 GitHub: [DanielTorresAndrade](https://github.com/DanielTorresAndrade)
+Este é um projeto end-to-end de Ciência de Dados desenvolvido para auxiliar o CEO da **Fome Zero** na tomada de decisões estratégicas baseadas em dados.
 
 ---
-*Projeto desenvolvido como parte do portfólio de Ciência de Dados.*
+
+## 1. Problema de Negócio
+
+A **Fome Zero** é uma marketplace de restaurantes que conecta clientes a estabelecimentos gastronômicos. A empresa captura dados diversos, como localização, tipos de culinária, avaliações, reservas e entregas.
+
+O recém-contratado CEO, **Kleiton Guerra**, precisa entender profundamente o ecossistema da empresa para alavancar o crescimento. O objetivo deste projeto é entregar um **Painel Gerencial (Dashboard)** que responda às principais perguntas de negócio e permita a exploração interativa dos dados.
+
+<details>
+  <summary><strong>📋 Clique aqui para ver as Perguntas de Negócio respondidas neste projeto</strong></summary>
+
+  ### Geral
+  1. Quantos restaurantes únicos estão registrados?
+  2. Quantos países únicos estão registrados?
+  3. Quantas cidades únicas estão registradas?
+  4. Qual o total de avaliações feitas?
+  5. Qual o total de tipos de culinária registrados?
+
+  ### Países
+  1. Qual o nome do país que possui mais cidades registradas?
+  2. Qual o nome do país que possui mais restaurantes registrados?
+  3. Qual o nome do país que possui mais restaurantes com o nível de preço igual a 4 registrados?
+  4. Qual o nome do país que possui a maior quantidade de tipos de culinária distintos?
+  5. Qual o nome do país que possui a maior quantidade de avaliações feitas?
+  6. Qual o nome do país que possui a maior quantidade de restaurantes que fazem entrega?
+  7. Qual o nome do país que possui a maior quantidade de restaurantes que aceitam reservas?
+  8. Qual o nome do país que possui, na média, a maior quantidade de avaliações registrada?
+  9. Qual o nome do país que possui, na média, a maior nota média registrada?
+  10. Qual o nome do país que possui, na média, a menor nota média registrada?
+  11. Qual a média de preço de um prato para dois por país?
+
+  ### Cidades
+  1. Qual o nome da cidade que possui mais restaurantes registrados?
+  2. Qual o nome da cidade que possui mais restaurantes com nota média acima de 4?
+  3. Qual o nome da cidade que possui mais restaurantes com nota média abaixo de 2.5?
+  4. Qual o nome da cidade que possui o maior valor médio de um prato para dois?
+  5. Qual o nome da cidade que possui a maior quantidade de tipos de culinária distintas?
+  6. Qual o nome da cidade que possui a maior quantidade de restaurantes que fazem reservas?
+  7. Qual o nome da cidade que possui a maior quantidade de restaurantes que fazem entregas?
+  8. Qual o nome da cidade que possui a maior quantidade de restaurantes que aceitam pedidos online?
+
+  ### Restaurantes
+  1. Qual o nome do restaurante que possui a maior quantidade de avaliações?
+  2. Qual o nome do restaurante com a maior nota média?
+  3. Qual o nome do restaurante que possui o maior valor de uma prato para duas pessoas?
+  4. Qual o nome do restaurante de tipo de culinária brasileira que possui a menor média de avaliação?
+  5. Qual o nome do restaurante de tipo de culinária brasileira, e que é do Brasil, que possui a maior média de avaliação?
+  6. Os restaurantes que aceitam pedido online são também, na média, os restaurantes que mais possuem avaliações registradas?
+  7. Os restaurantes que fazem reservas são também, na média, os restaurantes que possuem o maior valor médio de um prato para duas pessoas?
+  8. Os restaurantes do tipo de culinária japonesa dos Estados Unidos da América possuem um valor médio de prato para duas pessoas maior que as churrascarias americanas (BBQ)?
+
+  ### Culinárias
+  1. Dos restaurantes que possuem o tipo de culinária italiana, qual o nome do restaurante com a maior média de avaliação?
+  2. Dos restaurantes que possuem o tipo de culinária italiana, qual o nome do restaurante com a menor média de avaliação?
+  3. Dos restaurantes que possuem o tipo de culinária americana, qual o nome do restaurante com a maior média de avaliação?
+  4. Dos restaurantes que possuem o tipo de culinária americana, qual o nome do restaurante com a menor média de avaliação?
+  5. Dos restaurantes que possuem o tipo de culinária árabe, qual o nome do restaurante com a maior média de avaliação?
+  6. Dos restaurantes que possuem o tipo de culinária árabe, qual o nome do restaurante com a menor média de avaliação?
+  7. Dos restaurantes que possuem o tipo de culinária japonesa, qual o nome do restaurante com a maior média de avaliação?
+  8. Dos restaurantes que possuem o tipo de culinária japonesa, qual o nome do restaurante com a menor média de avaliação?
+  9. Dos restaurantes que possuem o tipo de culinária caseira, qual o nome do restaurante com a maior média de avaliação?
+  10. Dos restaurantes que possuem o tipo de culinária caseira, qual o nome do restaurante com a menor média de avaliação?
+  11. Qual o tipo de culinária que possui o maior valor médio de um prato para duas pessoas?
+  12. Qual o tipo de culinária que possui a maior nota média?
+  13. Qual o tipo de culinária que possui mais restaurantes que aceitam pedidos online e fazem entregas?
+</details>
+
+## 2. Premissas do Negócio
+
+- **Fonte de Dados:** Dataset público [Zomato Restaurants](https://www.kaggle.com/datasets/akashram/zomato-restaurants-autoupdated-dataset?select=zomato.csv) (Kaggle).
+- **Modelo de Negócio:** Marketplace (Intermediação entre clientes e restaurantes).
+- **Estrutura de Análise:** O painel foi dividido em 4 visões estratégicas para facilitar a navegação e o foco da análise.
+
+## 3. Estratégia da Solução
+
+O painel foi desenvolvido utilizando a metodologia cíclica de desenvolvimento de software, focando em entregar valor rápido para o usuário final. As métricas foram organizadas nas seguintes visões:
+
+| Visão | Descrição das Métricas Principais |
+| :--- | :--- |
+| **🌎 Geral** | Visão macro: Total de restaurantes, países, cidades, avaliações e mapa de geolocalização. |
+| **🇺🇳 Países** | Comparativo entre nações: Quantidade de restaurantes, média de avaliações e custo médio prato para dois. |
+| **🏙️ Cidades** | Top Cidades com mais restaurantes, melhores/piores notas médias e diversidade culinária. |
+| **🥘 Culinárias** | Análise de nicho: Melhores restaurantes por tipo de cozinha e rankings de categorias. |
+
+## 4. Top 3 Insights de Dados
+
+Durante a análise exploratória, destacaram-se os seguintes pontos:
+
+1.  **Dominância e Custo na Índia:** A Índia possui a maior quantidade de restaurantes cadastrados, mas também apresenta o 3º maior custo médio para dois (ajustado pela moeda), indicando um mercado volumoso e de alto valor agregado.
+2.  **Performance Brasileira:** As três únicas cidades brasileiras presentes (Brasília, São Paulo e Rio de Janeiro) figuram no Top 10 cidades com **piores médias de avaliação**. Isso sugere uma oportunidade de melhoria na qualidade do serviço ou na gestão de expectativas dos clientes locais.
+3.  **Paradoxo das Culinárias:** Culinárias tradicionais orientais (Japonesa, etc.) tendem a ter notas consistentemente altas, enquanto categorias de nicho específico (apenas bebidas, culinária mineira, afegan) apresentam médias inferiores.
+
+## 5. O Produto Final
+
+O resultado é um painel interativo hospedado na nuvem, acessível de qualquer dispositivo.
+
+[![Acessar Dashboard](https://img.shields.io/badge/Acessar_Dashboard-Fome_Zero-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://daniel-fome-zero-analytics.streamlit.app/)
+
+## 6. Conclusão
+
+O projeto atingiu seu objetivo de transformar dados brutos em informação acionável. Através dos filtros de países e tipos de culinárias, o CEO agora possui uma ferramenta para segmentar o mercado e identificar micro-tendências que antes estavam ocultas nos dados.
+
+Com este dados, o CEO pode tomar melhores decisões de investir em restaurantes com potencial de crescimento, aumentando assim a eficiência financeira e o crescimento do negócio.
+
+## 7. Próximos Passos
+
+1.  **Novos Filtros:** Adicionar filtros por faixa de preço e disponibilidade de reserva online.
+2.  **Análise Temporal:** Se houver dados históricos, implementar análise de tendências ao longo do tempo.
+3.  **Otimização do Mapa:** Implementar clusterização mais eficiente para melhorar a performance de renderização em dispositivos móveis.
+4.  **UX/UI:** Refinar o layout para uma experiência de usuário ainda mais fluida.
+5.  **Melhoria da Documentação:** Melhorar a documentação para tornar o processo de desenvolvimento mais claro e intuitivo.
+
+---
+
+## 8. 🛠️ Documentação Técnica & Instalação
+
+Para detalhes técnicos sobre a estrutura de arquivos, instalação de dependências, como executar o projeto na sua máquina local ou informações sobre as tecnologias utilizadas (Python, Streamlit, Plotly, UV), consulte o arquivo de documentação dedicado:
+
+[![Ver Documentação Técnica](https://img.shields.io/badge/📖_Ler-PROJECT.md-1f425f?style=for-the-badge)](./PROJECT.md)
+
+---
